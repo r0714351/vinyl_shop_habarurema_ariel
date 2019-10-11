@@ -1,7 +1,10 @@
-<h1>Records</h1>
+@extends('layouts.template')
+@section('title', 'Records')
 
-<ul>
-    @foreach ($records as $record)
-        <li>{{ $record }}</li>
-    @endforeach
-</ul>
+@section('main')
+    <ul>
+        @foreach ($records as $record)
+            <li>{{ $record }}</li>
+        @endforeach
+    </ul>
+@endsection
