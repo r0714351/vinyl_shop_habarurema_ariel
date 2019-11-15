@@ -13,6 +13,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @yield('css_after')
     <title>@yield('title', 'The Vinyl Shop')</title>
 </head>
 <body>
@@ -24,5 +25,6 @@
 {{--  Footer  --}}
 @include("shared.footer")
 <script src="{{ mix('js/app.js') }}"></script>
+@yield('script_after')
 </body>
 </html>

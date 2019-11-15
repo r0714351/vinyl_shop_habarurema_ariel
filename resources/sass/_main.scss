@@ -2,3 +2,15 @@
 main {
     min-height: 500px;
 }
+
+.cardShopMaster {
+    cursor: pointer;
+
+    .btn, form .btn {
+        display: none;
+    }
+}
+
+.row .card{
+    display: flex;
+}
