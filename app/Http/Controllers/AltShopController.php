@@ -21,10 +21,4 @@ class AltShopController extends Controller
             'genres' => $genres
         ]);
     }
-
-    // Detail Page: http://vinyl_shop.test/shop/{id} or http://localhost:3000/shop/{id}
-    public function show($id)
-    {
-        return view('shop.show', ['id' => $id]);  // Send $id to the view
-    }
 }

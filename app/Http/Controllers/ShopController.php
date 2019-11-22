@@ -50,6 +50,16 @@ class ShopController extends Controller
     // Detail Page: http://vinyl_shop.test/shop/{id} or http://localhost:3000/shop/{id}
     public function show($id)
     {
-        return view('shop.show', ['id' => $id]);  // Send $id to the view
+        $record = Record::with('genre')->findOrFail($id);
+        $record->cover = $record->cover ?? "https://coverartarchive.org/release/$record->title_mbid/front-250.jpg";
+        $record->title = $record->artist . ' - ' . $record->title;
+        $record->artistUrl = 'https://musicbrainz.org/ws/2/artist/' . $record->artist_mbid . '?inc=url-rels&fmt=json';
+        $record->recordUrl = 'https://musicbrainz.org/ws/2/release/' . $record->title_mbid . '?inc=recordings+url-rels&fmt=json';
+        $record->btnClass = $record->stock > 0 ? 'btn-outline-success' : 'btn-outline-danger';
+        $record->genreName = $record->genre->name;
+        unset($record->genre_id, $record->artist, $record->created_at, $record->updated_at, $record->artist_mbid, $record->title_mbid, $record->genre);
+        $result = compact('record');
+        Json::dump($result);
+       return view('shop.show', $result);
     }
 }

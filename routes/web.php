@@ -16,7 +16,6 @@ Route::view('contact-us', 'contact');
 Route::get('shop', 'ShopController@index');
 Route::get('shop/{id}', 'ShopController@show');
 Route::get('shop_alt', 'AltShopController@index');
-Route::get('shop/{id}', 'AltShopController@show');
 Route::prefix('admin')->group(function () {
     Route::redirect('/', 'records');
     Route::get('records', 'Admin\RecordController@index');
