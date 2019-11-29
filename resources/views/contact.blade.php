@@ -6,7 +6,7 @@
     @include('shared.alert')
     @if (!session()->has('success'))
         <form action="/contact-us" method="post">
-           @csrf
+           <!-- @csrf -->
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name"
