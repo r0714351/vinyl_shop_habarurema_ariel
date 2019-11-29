@@ -11,13 +11,32 @@
 |
 */
 
+Auth::routes();
 Route::view('/', 'home');
-Route::view('contact-us', 'contact');
+Route::get('logout', 'Auth\LoginController@logout');
+Route::get('contact-us', 'ContactUsController@show');
+Route::post('contact-us', 'ContactUsController@sendEmail');
 Route::get('shop', 'ShopController@index');
 Route::get('shop/{id}', 'ShopController@show');
 Route::get('shop_alt', 'AltShopController@index');
-Route::prefix('admin')->group(function () {
-    Route::redirect('/', 'records');
+
+Route::redirect('user', '/user/profile');
+Route::middleware(['auth'])->prefix('user')->group(function () {
+    Route::get('profile', 'User\ProfileController@edit');
+    Route::post('profile', 'User\ProfileController@update');
+    Route::get('password', 'User\PasswordController@edit');
+    Route::post('password', 'User\PasswordController@update');
+});
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    route::redirect('/', 'records');
     Route::get('records', 'Admin\RecordController@index');
 });
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    route::redirect('/', 'records');
+    Route::get('records', 'Admin\RecordController@index');
+});
+
+
 
