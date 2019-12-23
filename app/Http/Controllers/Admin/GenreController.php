@@ -16,12 +16,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        $genres = Genre::orderBy('name')
-            ->withCount('records')
-            ->get();
-        $result = compact('genres');
-        Json::dump($result);
-        return view('admin.genres.index', $result);
+        return view('admin.genres.index');
     }
 
     /**
@@ -31,28 +26,28 @@ class GenreController extends Controller
      */
     public function create()
     {
-        $genre = new Genre();
-        $result = compact('genre');
-        return view('admin.genres.create', $result);
+        return view('admin/genres');
     }
 
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required|min:3|unique:genres,name'
         ]);
 
         $genre = new Genre();
         $genre->name = $request->name;
         $genre->save();
-        session()->flash('success', "The genre <b>$genre->name</b> has been added");
-        return redirect('admin/genres');
+        return response()->json([
+            'type' => 'success',
+            'text' => "The genre <b>$genre->name</b> has been added"
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Genre  $genre
+     * @param \App\Genre $genre
      * @return \Illuminate\Http\Response
      */
     public function show(Genre $genre)
@@ -63,32 +58,42 @@ class GenreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Genre  $genre
+     * @param \App\Genre $genre
      * @return \Illuminate\Http\Response
      */
     public function edit(Genre $genre)
     {
-        $result = compact('genre');
-        Json::dump($result);
-        return view('admin.genres.edit', $result);
+        return view('admin/genres');
     }
 
 
     public function update(Request $request, Genre $genre)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required|min:3|unique:genres,name,' . $genre->id
         ]);
         $genre->name = $request->name;
         $genre->save();
-        session()->flash('success', 'The genre has been updated');
-        return redirect('admin/genres');
+        return response()->json([
+            'type' => 'success',
+            'text' => "The genre <b>$genre->name</b> has been updated"
+        ]);
     }
 
     public function destroy(Genre $genre)
     {
         $genre->delete();
-        session()->flash('success', "The genre <b>$genre->name</b> has been deleted");
-        return redirect('admin/genres');
+        return response()->json([
+            'type' => 'success',
+            'text' => "The genre <b>$genre->name</b> has been deleted"
+        ]);
+    }
+
+    public function qryGenres()
+    {
+        $genres = Genre::orderby('name')
+            ->withCount('records')
+            ->get();
+        return $genres;
     }
 }
