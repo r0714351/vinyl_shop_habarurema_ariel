@@ -15,8 +15,8 @@
                 <select class="form-control" name="genre_id" id="genre_id">
                     <option value="%">All genres</option>
                     @foreach($genres as $genre)
-                    <option value="{{ $genre->id }}">
-                        {{ (request()->genre_id ==  $genre->id ? 'selected' : '') }}>{{ $genre->name }}</option>
+                        <option value="{{ $genre->id }}">
+                            {{ (request()->genre_id ==  $genre->id ? 'selected' : '') }}>{{ $genre->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -35,23 +35,23 @@
     {{ $records->links() }}
     <div class="row">
         @foreach($records as $record)
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-            <div class="card cardShopMaster" data-id="{{ $record->id }}">
-                <img class="card-img-top" src="/assets/vinyl.png" data-src="{{ $record->cover }}" alt="{{ $record->artist }} - {{ $record->title }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $record->artist }}</h5>
-                    <p class="card-text">{{ $record->title }}</p>
-                    <a href="shop/{{ $record->id }}" class="btn btn-outline-info btn-sm btn-block">Show details</a>
-                </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <p>{{ $record->genre->name }}</p>
-                    <p>
-                        € {{ number_format($record->price,2) }}
-                        <span class="ml-3 badge badge-success">{{ $record->stock }}</span>
-                    </p>
+            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+                <div class="card cardShopMaster" data-id="{{ $record->id }}">
+                    <img class="card-img-top" src="/assets/vinyl.png" data-src="{{ $record->cover }}" alt="{{ $record->artist }} - {{ $record->title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $record->artist }}</h5>
+                        <p class="card-text">{{ $record->title }}</p>
+                        <a href="shop/{{ $record->id }}" class="btn btn-outline-info btn-sm btn-block">Show details</a>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <p>{{ $record->genre->name }}</p>
+                        <p>
+                            € {{ number_format($record->price,2) }}
+                            <span class="ml-3 badge badge-success">{{ $record->stock }}</span>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
     </div>
     {{ $records->links() }}
@@ -88,5 +88,3 @@
 
 
 @endsection
-
---

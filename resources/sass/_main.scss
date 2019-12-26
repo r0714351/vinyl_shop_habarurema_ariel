@@ -14,3 +14,7 @@ main {
 .row .card{
     display: flex;
 }
+
+.btn[disabled] {
+    cursor: not-allowed;
+}

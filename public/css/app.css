@@ -10984,3 +10984,7 @@ main {
   display: flex;
 }
 
+.btn[disabled] {
+  cursor: not-allowed;
+}
+
