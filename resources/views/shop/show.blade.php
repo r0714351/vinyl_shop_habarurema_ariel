@@ -4,7 +4,7 @@
 
 @section('main')
     <h1>{{$record->title}}</h1>
-    @include('shared.alert');
+    @include('shared.alert')
     @auth()
         @if(auth()->user()->admin)
             <div class="alert alert-primary">

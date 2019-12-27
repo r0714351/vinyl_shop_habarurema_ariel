@@ -40,6 +40,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('records', 'Admin\RecordController');
     Route::resource('users', 'Admin\UserController');
     Route::resource('users2', 'Admin\User2Controller', ['parameters' => ['users2' => 'user']]);
+    Route::get('user3/qryUsers', 'Admin\User3Controller@qryUsers');
+    Route::resource('users3', 'Admin\User3Controller', ['parameters' => ['users3' => 'user']]);
     Route::get('records', 'Admin\RecordController@index');
 });
 

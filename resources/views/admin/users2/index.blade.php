@@ -50,9 +50,9 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
+                <tr class="uname">
+                    <td class="id">{{ $user->id }}</td>
+                    <td class="name">{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->active }}</td>
                     <td>{{ $user->admin }}</td>
@@ -149,10 +149,16 @@
                     });
             }
 
-            $('tbody').on('click', '.btn-edit', function () {
+            $('tr').on('click', '.btn-edit', function () {
                 // Get data attributes from td tag
-                let id = $(this).find('td:first-child').eq(1).html();
-                let name = $(this).find('td').eq(2).html();
+                let id = $(this).closest("td").find("id").val();
+                //let name = $(this).find("name").text();
+                let name = $(this).closest("td").find("name").val();
+                // Update modal
+                $('.modal-title').text(`Edit ${name}`);
+                $('form').attr('action', `/admin/users2/${id}`);
+                $('#name').val(name);
+                $('input[name="_method"]').val('put');
                 // Show the modal
                 $('#modal-users2').modal('show');
             });
